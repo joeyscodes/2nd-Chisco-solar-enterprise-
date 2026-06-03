@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Get a free solar quote from Chisco Solar Enterprise. Fill out the form and our team will design a custom solar solution for your home or business in Lagos.">
+  <title>Get a Quote | Chisco Solar Enterprise</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="scroll-sentinel"></div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar">
+    <div class="logo">CHISCO<span>SOLAR</span></div>
+    <div class="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+      <a href="quote.html" class="active nav-cta">Get a Quote</a>
+    </div>
+  </nav>
+
+  <!-- ========== PAGE HEADER ========== -->
+  <section class="page-header">
+    <div class="breadcrumb">Home > Get a Quote</div>
+    <h1>Request Your Free Quote</h1>
+    <p style="color: #b0b0b0; max-width: 550px; margin: 1rem auto;">Tell us about your project and we'll send you a detailed proposal within 24 hours.</p>
+  </section>
+
+  <!-- ========== QUOTE FORM ========== -->
+  <section class="section reveal">
+    <div class="form-container">
+      <form class="ajax-form" action="https://formspree.io/f/FORM_ID" method="POST">
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+          <label for="service">Service Interested In *</label>
+          <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option value="residential">Residential Solar</option>
+            <option value="commercial">Commercial / Industrial Solar</option>
+            <option value="battery">Battery Storage / Backup</option>
+            <option value="maintenance">Maintenance & Repairs</option>
+            <option value="consultation">Energy Consultation</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Project Details</label>
+          <textarea id="message" name="message" placeholder="Describe your energy needs, location, monthly electricity bill, or any special requests..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Quote Request</button>
+      </form>
+
+      <!-- Confirmation message (hidden until form submission) -->
+      <div id="confirmation-message" class="confirmation">
+        <i>✓</i>
+        <h3>Quote Request Received!</h3>
+        <p>Thank you for reaching out to Chisco Solar Enterprise. One of our energy consultants will review your details and send a custom proposal to your email within 24 hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA NOTE ========== -->
+  <section class="section cta-section reveal" style="background: transparent;">
+    <div class="section-label">Prefer a Call?</div>
+    <h2>We're a Phone Call Away</h2>
+    <p style="color: #b0b0b0; max-width: 600px; margin: 1rem auto;">If you'd rather speak directly, dial <a href="tel:+08104269327" style="color: #f5a623; text-decoration: none;">0810 426 9327</a> and we'll answer your questions instantly.</p>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <div class="footer">
+      <div class="footer-col">
+        <h3>CHISCO<span style="color: #f5a623;">SOLAR</span></h3>
+        <p>Premium solar installations in Lagos.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+        <a href="quote.html">Get a Quote</a>
+      </div>
+      <div class="footer-col">
+        <h3>Contact</h3>
+        <p>Alaba Rago Rd, Alaba International Market Rd, Ojo, Lagos</p>
+        <p>Lagos 102113, Nigeria</p>
+        <a href="tel:+08104269327">0810 426 9327</a>
+        <a href="mailto:info@chiscosolar.com">info@chiscosolar.com</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Chisco Solar Enterprise. All rights reserved. Powering Lagos with the sun.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+            </html>
