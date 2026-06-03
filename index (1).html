@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07121d" />
+  <title>Chisco Solar Enterprise — Premium Solar Installation in Lagos</title>
+  <meta name="description" content="Chisco Solar Enterprise provides premium solar installation, inverter systems, batteries, and maintenance in Lagos. Get a fast quote today." />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js -->
+  <script src="https://unpkg.com/three@0.161.0/build/three.min.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#050a12;
+      --bg1:#071728;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --stroke: rgba(255,255,255,.10);
+      --muted: rgba(255,255,255,.68);
+      --muted2: rgba(255,255,255,.52);
+      --shadow: 0 25px 80px rgba(0,0,0,.55);
+      --shadow2: 0 18px 45px rgba(0,0,0,.35);
+      --accent:#36d399;
+      --accent2:#60a5fa;
+      --warn:#fbbf24;
+      --danger:#fb7185;
+      --radius: 18px;
+    }
+
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: rgba(255,255,255,.92);
+      background:
+        radial-gradient(1200px 900px at 10% 0%, rgba(96,165,250,.12), transparent 60%),
+        radial-gradient(900px 700px at 90% 10%, rgba(54,211,153,.12), transparent 55%),
+        radial-gradient(900px 700px at 50% 100%, rgba(251,191,36,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 70%, #040812);
+      overflow-x: hidden;
+    }
+
+    /* Smoother font rendering */
+    *{ -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    a{ color:inherit; text-decoration:none; }
+    button, input, select, textarea { font: inherit; }
+
+    /* Subtle animated noise */
+    .noise:before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      mix-blend-mode: overlay;
+      opacity: .07;
+      animation: grain 7s steps(2) infinite;
+    }
+    @keyframes grain{
+      0% { transform: translate3d(0,0,0); }
+      25% { transform: translate3d(-2%, 2%,0); }
+      50% { transform: translate3d(2%,-2%,0); }
+      75% { transform: translate3d(-2%,-2%,0); }
+      100% { transform: translate3d(0,0,0); }
+    }
+
+    /* Glass */
+    .glass{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .glass-strong{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.55rem;
+      border-radius: 999px;
+      padding: .85rem 1.05rem;
+      font-weight: 800;
+      letter-spacing: .01em;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease, opacity .2s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+    .btn-primary{
+      background: linear-gradient(90deg, rgba(54,211,153,1), rgba(96,165,250,1));
+      color: #031015;
+      box-shadow: 0 18px 60px rgba(54,211,153,.18), 0 18px 60px rgba(96,165,250,.12);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 24px 70px rgba(54,211,153,.22), 0 24px 70px rgba(96,165,250,.16);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+    }
+    .btn-ghost:hover{
+      background: rgba(255,255,255,.09);
+      transform: translateY(-1px);
+    }
+    .btn-soft{
+      background: rgba(54,211,153,.14);
+      border: 1px solid rgba(54,211,153,.25);
+      color: rgba(255,255,255,.92);
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.35rem .7rem;
+      border-radius:999px;
+      font-weight:800;
+      font-size:.82rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.88);
+    }
+
+    /* Nav */
+    .nav-wrap{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(4, 10, 18, .55);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .nav-link{
+      padding: .6rem .85rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.75);
+      font-weight: 800;
+      font-size: .95rem;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+    .nav-link:hover{
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.95);
+      transform: translateY(-1px);
+    }
+    .nav-link.active{
+      background: rgba(54,211,153,.12);
+      border: 1px solid rgba(54,211,153,.22);
+      color: rgba(255,255,255,.95);
+    }
+
+    /* Hero */
+    .hero{
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(1200px 700px at 25% 10%, rgba(54,211,153,.12), transparent 55%),
+        radial-gradient(1100px 700px at 85% 25%, rgba(96,165,250,.14), transparent 55%),
+        radial-gradient(900px 500px at 50% 100%, rgba(251,191,36,.10), transparent 55%);
+      pointer-events:none;
+    }
+
+    /* Cinematic banner with photo */
+    .hero-banner{
+      position: relative;
+      border-radius: 26px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      background: #020610;
+      transform: translateZ(0);
+    }
+    .hero-banner .photo{
+      position:absolute;
+      inset:0;
+      background-image:
+        linear-gradient(90deg, rgba(5,10,18,.92) 0%, rgba(5,10,18,.70) 45%, rgba(5,10,18,.35) 70%, rgba(5,10,18,.55) 100%),
+        url("https://images.unsplash.com/photo-1592833159155-2f8c13cc39b0?auto=format&fit=crop&w=2200&q=70");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.05) contrast(1.08);
+      transform: scale(1.03);
+    }
+    .hero-banner .scanlines{
+      position:absolute; inset:0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,.06),
+        rgba(255,255,255,.06) 1px,
+        rgba(0,0,0,0) 2px,
+        rgba(0,0,0,0) 6px
+      );
+      opacity:.07;
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+    .hero-banner .glow{
+      position:absolute; inset:-60px;
+      background: radial-gradient(600px 300px at 15% 15%, rgba(54,211,153,.22), transparent 60%),
+                  radial-gradient(700px 380px at 85% 25%, rgba(96,165,250,.24), transparent 62%);
+      pointer-events:none;
+      filter: blur(2px);
+      animation: glowFloat 7s ease-in-out infinite;
+      opacity: .9;
+    }
+    @keyframes glowFloat{
+      0%,100%{ transform: translate3d(0,0,0); }
+      50%{ transform: translate3d(12px,-10px,0); }
+    }
+
+    /* 3D stage */
+    #stage{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.9;
+    }
+
+    /* Cards & sections */
+    .section{
+      padding: 4.25rem 0;
+    }
+    .section-title{
+      font-size: clamp(1.7rem, 1.1rem + 2vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -.02em;
+      line-height: 1.05;
+    }
+    .section-sub{
+      color: var(--muted);
+      max-width: 62ch;
+    }
+    .kpi{
+      border-radius: 18px;
+      padding: 1rem 1.05rem;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .kpi .num{
+      font-weight: 950;
+      letter-spacing: -.02em;
+      font-size: 1.35rem;
+    }
+
+    /* Page routing */
+    .page{ display:none; }
+    .page.active{ display:block; }
+
+    /* Forms */
+    .field{
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding: .9rem .95rem;
+      color: rgba(255,255,255,.92);
+      outline: none;
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+    .field:focus{
+      border-color: rgba(54,211,153,.45);
+      background: rgba(255,255,255,.08);
+    }
+    .help{
+      color: rgba(255,255,255,.55);
+      font-size:.9rem;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      min-width: min(520px, calc(100vw - 26px));
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(6,14,24,.72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow2);
+      padding: .9rem 1rem;
+      display:none;
+    }
+    .toast.show{ display:flex; }
+    .toast .dot{
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(54,211,153,.12);
+      margin-top:.35rem;
+      flex: 0 0 auto;
+    }
+
+    /* Footer */
+    footer{
+      border-top: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.18);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ scroll-behavior: auto !important; }
+      .hero-banner .glow{ animation: none; }
+    }
+  </style>
+</head>
+
+<body class="noise">
+  <!-- Top Nav -->
+  <header class="nav-wrap">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="h-16 flex items-center justify-between gap-3">
+        <a href="#/" class="flex items-center gap-3 group" data-link>
+          <div class="w-10 h-10 rounded-xl glass flex items-center justify-center border border-white/10">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 2l2.3 5.9L21 10l-5.1 4.1L17.4 21 12 17.7 6.6 21l1.5-6.9L3 10l6.7-2.1L12 2z" stroke="rgba(255,255,255,.85)" stroke-width="1.4" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="leading-tight">
+            <div class="font-black tracking-tight text-white/95">Chisco Solar</div>
+            <div class="text-xs font-extrabold text-white/55 -mt-0.5">Enterprise • Lagos</div>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1">
+          <a class="nav-link active" href="#/" data-link data-route="/">Home</a>
+          <a class="nav-link" href="#/services" data-link data-route="/services">Services</a>
+          <a class="nav-link" href="#/projects" data-link data-route="/projects">Projects</a>
+          <a class="nav-link" href="#/about" data-link data-route="/about">About</a>
+          <a class="nav-link" href="#/contact" data-link data-route="/contact">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a class="btn btn-ghost hidden sm:inline-flex" href="tel:08104269327" aria-label="Call Chisco Solar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6.6 10.8c1.5 3 3.6 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.9.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.3 21 3 12.7 3 2c0-.6.4-1 1-1h3.4c.6 0 1 .4 1 1 0 1.4.2 2.7.6 3.9.1.4 0 .8-.3 1.1l-2 2.8z" stroke="rgba(255,255,255,.9)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+            Call
+          </a>
+          <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">
+            Get Free Quote
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h12" stroke="rgba(3,16,21,.9)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M13 6l6 6-6 6" stroke="rgba(3,16,21,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+
+          <button id="menuBtn" class="md:hidden btn btn-ghost px-3" aria-label="Open menu">
+            <svg id="menuIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="md:hidden hidden pb-4">
+        <div class="glass rounded-2xl p-2 border border-white/10">
+          <a class="nav-link block" href="#/" data-link data-route="/">Home</a>
+          <a class="nav-link block" href="#/services" data-link data-route="/services">Services</a>
+          <a class="nav-link block" href="#/projects" data-link data-route="/projects">Projects</a>
+          <a class="nav-link block" href="#/about" data-link data-route="/about">About</a>
+          <a class="nav-link block" href="#/contact" data-link data-route="/contact">Contact</a>
+          <div class="px-2 pt-2 flex flex-col gap-2">
+            <a class="btn btn-ghost w-full" href="tel:08104269327">Call 0810 426 9327</a>
+            <a class="btn btn-primary w-full" href="#/contact" data-link data-route="/contact">Get Free Quote</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section id="page-home" class="page active">
+      <section class="hero">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-14">
+          <div class="grid lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-6 relative z-10">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="badge">
+                  <span class="inline-block w-2 h-2 rounded-full" style="background: var(--accent); box-shadow: 0 0 0 6px rgba(54,211,153,.12)"></span>
+                  Premium Solar Installation • Lagos
+                </span>
+                <span class="badge" style="background: rgba(96,165,250,.10); border-color: rgba(96,165,250,.22);">
+                  Fast Quote • Clean Work • Aftercare
+                </span>
+              </div>
+
+              <h1 class="mt-5 font-black tracking-tight leading-[1.02] text-4xl sm:text-5xl xl:text-6xl">
+                Power your home & business with <span class="text-white">cinematic</span> solar reliability.
+              </h1>
+              <p class="mt-4 text-white/70 text-lg sm:text-xl max-w-xl">
+                Chisco Solar Enterprise designs, installs and maintains premium solar + inverter systems with neat cabling,
+                safe protection, and performance you can trust.
+              </p>
+
+              <div class="mt-6 flex flex-col sm:flex-row gap-3 sm:items-center">
+                <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">
+                  Get Free Site Survey
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M5 12h12" stroke="rgba(3,16,21,.9)" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M13 6l6 6-6 6" stroke="rgba(3,16,21,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+                <a class="btn btn-ghost" href="#/services" data-link data-route="/services">
+                  Explore Services
+                </a>
+                <div class="text-sm text-white/60 sm:ml-2">
+                  <div class="font-extrabold text-white/85">Call: <a class="underline decoration-white/20 hover:decoration-white/50" href="tel:08104269327">0810 426 9327</a></div>
+                  <div class="text-white/55">Alaba, Ojo — Lagos</div>
+                </div>
+              </div>
+
+              <div class="mt-8 grid grid-cols-3 gap-3">
+                <div class="kpi glass">
+                  <div class="num" data-count="24">0</div>
+                  <div class="text-xs font-extrabold text-white/55">hr response time</div>
+                </div>
+                <div class="kpi glass">
+                  <div class="num" data-count="5">0</div>
+                  <div class="text-xs font-extrabold text-white/55">step quality check</div>
+                </div>
+                <div class="kpi glass">
+                  <div class="num" data-count="100">0</div>
+                  <div class="text-xs font-extrabold text-white/55">% tidy finishing</div>
+                </div>
+              </div>
+
+              <div class="mt-6 flex flex-wrap gap-2 text-xs text-white/55">
+                <span class="badge">Residential</span>
+                <span class="badge">Commercial</span>
+                <span class="badge">Inverter + Battery</span>
+                <span class="badge">Maintenance</span>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6">
+              <div class="hero-banner">
+                <div class="photo" aria-hidden="true"></div>
+                <canvas id="stage"></canvas>
+                <div class="glow" aria-hidden="true"></div>
+                <div class="scanlines" aria-hidden="true"></div>
+
+                <div class="relative p-5 sm:p-7 lg:p-8">
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div class="glass-strong rounded-2xl p-4 border border-white/12">
+                      <div class="flex items-start justify-between gap-3">
+                        <div>
+                          <div class="font-black text-white/95">Instant Estimate</div>
+                          <div class="text-sm text-white/60 mt-0.5">Tell us your load & budget.</div>
+                        </div>
+                        <div class="badge" style="background: rgba(54,211,153,.14); border-color: rgba(54,211,153,.25);">
+                          <span class="inline-block w-2 h-2 rounded-full" style="background: var(--accent)"></span> Live
+                        </div>
+                      </div>
+
+                      <div class="mt-3 grid grid-cols-2 gap-2">
+                        <div class="rounded-xl p-3 border border-white/10 bg-white/5">
+                          <div class="text-xs font-extrabold text-white/55">System Type</div>
+                          <div class="font-extrabold text-white/90 mt-1">Solar + Inverter</div>
+                        </div>
+                        <div class="rounded-xl p-3 border border-white/10 bg-white/5">
+                          <div class="text-xs font-extrabold text-white/55">Installation</div>
+                          <div class="font-extrabold text-white/90 mt-1">Neat • Safe</div>
+                        </div>
+                      </div>
+
+                      <a class="btn btn-soft w-full mt-3" href="#/contact" data-link data-route="/contact">
+                        Start Quote
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M5 12h12" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M13 6l6 6-6 6" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </a>
+                    </div>
+
+                    <div class="glass-strong rounded-2xl p-4 border border-white/12">
+                      <div class="font-black text-white/95">What you get</div>
+                      <ul class="mt-2 space-y-2 text-sm text-white/70">
+                        <li class="flex gap-2">
+                          <span class="mt-[6px] w-2 h-2 rounded-full" style="background: rgba(96,165,250,1)"></span>
+                          Correct sizing (no underpowered setups)
+                        </li>
+                        <li class="flex gap-2">
+                          <span class="mt-[6px] w-2 h-2 rounded-full" style="background: rgba(54,211,153,1)"></span>
+                          Surge protection + safe wiring
+                        </li>
+                        <li class="flex gap-2">
+                          <span class="mt-[6px] w-2 h-2 rounded-full" style="background: rgba(251,191,36,1)"></span>
+                          Guidance on usage & maintenance
+                        </li>
+                        <li class="flex gap-2">
+                          <span class="mt-[6px] w-2 h-2 rounded-full" style="background: rgba(251,113,133,1)"></span>
+                          After-install support (when you need it)
+                        </li>
+                      </ul>
+
+                      <div class="mt-4 rounded-2xl p-3 border border-white/10 bg-white/5">
+                        <div class="text-xs font-extrabold text-white/55">Service Area</div>
+                        <div class="font-extrabold text-white/90 mt-1">Lagos & nearby</div>
+                        <div class="text-xs text-white/55 mt-1">Alaba Rago Rd, Ojo, Lagos 102113</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 glass rounded-2xl p-4 border border-white/10">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                      <div>
+                        <div class="font-black text-white/95">Want a clean, premium install?</div>
+                        <div class="text-sm text-white/60">Book a site survey and receive a tailored system plan.</div>
+                      </div>
+                      <div class="flex gap-2">
+                        <a class="btn btn-ghost" href="#/projects" data-link data-route="/projects">View Work</a>
+                        <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">Book Survey</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="mt-4 text-xs text-white/45 flex items-center justify-between">
+                <span>Interactive 3D visual (optimised for mobile)</span>
+                <button id="toggle3d" class="underline decoration-white/15 hover:decoration-white/45">Toggle 3D</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trust strip -->
+          <div class="mt-10 sm:mt-12 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="glass rounded-2xl p-4 border border-white/10">
+              <div class="text-sm font-black">Quality Components</div>
+              <div class="text-xs text-white/55 mt-1">Panels • Inverters • Batteries</div>
+            </div>
+            <div class="glass rounded-2xl p-4 border border-white/10">
+              <div class="text-sm font-black">Clean Installation</div>
+              <div class="text-xs text-white/55 mt-1">Neat cable routes & labeling</div>
+            </div>
+            <div class="glass rounded-2xl p-4 border border-white/10">
+              <div class="text-sm font-black">Transparent Pricing</div>
+              <div class="text-xs text-white/55 mt-1">No surprises — clear bill of materials</div>
+            </div>
+            <div class="glass rounded-2xl p-4 border border-white/10">
+              <div class="text-sm font-black">Aftercare Support</div>
+              <div class="text-xs text-white/55 mt-1">Maintenance & quick troubleshooting</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Value Proposition -->
+      <section class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <h2 class="section-title">A premium solar experience — from design to finishing</h2>
+              <p class="section-sub mt-3">
+                We focus on what makes clients feel confident: correct sizing, clean workmanship, and practical guidance so your system performs reliably.
+              </p>
+            </div>
+            <a class="btn btn-ghost" href="#/services" data-link data-route="/services">See all services</a>
+          </div>
+
+          <div class="mt-8 grid md:grid-cols-3 gap-4">
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="badge" style="background: rgba(54,211,153,.12); border-color: rgba(54,211,153,.22);">01 • Design</div>
+              <div class="mt-3 text-lg font-black">Proper load assessment</div>
+              <p class="mt-2 text-white/65">We size panels, inverter, and batteries based on your usage — so you don’t end up underpowered or overspending.</p>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="badge" style="background: rgba(96,165,250,.12); border-color: rgba(96,165,250,.22);">02 • Install</div>
+              <div class="mt-3 text-lg font-black">Neat, safe workmanship</div>
+              <p class="mt-2 text-white/65">Clean cable management, surge protection, and safe mounting — engineered to look premium and last.</p>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="badge" style="background: rgba(251,191,36,.12); border-color: rgba(251,191,36,.22);">03 • Support</div>
+              <div class="mt-3 text-lg font-black">Aftercare & maintenance</div>
+              <p class="mt-2 text-white/65">We help you maintain performance, troubleshoot quickly, and keep your system running smoothly.</p>
+            </div>
+          </div>
+
+          <div class="mt-8 glass-strong rounded-3xl p-6 border border-white/12">
+            <div class="grid lg:grid-cols-12 gap-6 items-center">
+              <div class="lg:col-span-7">
+                <div class="badge">High-converting offer</div>
+                <h3 class="mt-3 text-2xl sm:text-3xl font-black tracking-tight">Get a free site survey + system recommendation</h3>
+                <p class="mt-2 text-white/65 max-w-2xl">
+                  Send a few details — we’ll reply with a recommended setup range and next steps. No pressure, just clarity.
+                </p>
+              </div>
+              <div class="lg:col-span-5 flex flex-col sm:flex-row gap-3 lg:justify-end">
+                <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">Request Survey</a>
+                <a class="btn btn-ghost" href="tel:08104269327">Call 0810 426 9327</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="page-services" class="page">
+      <section class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <div class="badge">Services</div>
+              <h2 class="section-title mt-3">Everything you need for a reliable solar setup</h2>
+              <p class="section-sub mt-3">
+                Full-service solar installation in Lagos — built for performance, safety and a premium finish.
+              </p>
+            </div>
+            <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">Get a Quote</a>
+          </div>
+
+          <div class="mt-8 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="text-lg font-black">Residential Solar Installation</div>
+              <p class="mt-2 text-white/65">Power lighting, fans, TVs, fridges, and more with a properly sized home solar + inverter system.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Load assessment</span>
+                <span class="badge">Mounting</span>
+                <span class="badge">Protection</span>
+              </div>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="text-lg font-black">Commercial Solar Solutions</div>
+              <p class="mt-2 text-white/65">Reduce generator cost, improve uptime, and support business operations with scalable solar capacity.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Scalable design</span>
+                <span class="badge">Efficiency</span>
+                <span class="badge">Support</span>
+              </div>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="text-lg font-black">Inverter & Battery Systems</div>
+              <p class="mt-2 text-white/65">Reliable inverter systems with smart recommendations on battery type, capacity, and longevity.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Battery sizing</span>
+                <span class="badge">Setup</span>
+                <span class="badge">Testing</span>
+              </div>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="text-lg font-black">Maintenance & Troubleshooting</div>
+              <p class="mt-2 text-white/65">Performance checks, wiring inspection, panel cleaning guidance, and quick fault diagnosis.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Inspection</span>
+                <span class="badge">Repairs</span>
+                <span class="badge">Optimization</span>
+              </div>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="text-lg font-black">Surge Protection & Safety</div>
+              <p class="mt-2 text-white/65">Protection devices and safe cable routing to prevent damage and improve long-term reliability.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                <span class="badge">SPDs</span>
+                <span class="badge">Earthing</span>
+                <span class="badge">Labelling</span>
+              </div>
+            </div>
+            <div class="glass rounded-3xl p-5 border border-white/10">
+              <div class="text-lg font-black">System Upgrade / Expansion</div>
+              <p class="mt-2 text-white/65">Add more panels or batteries as your needs grow — done cleanly and safely.</p>
+              <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                <span class="badge">Upgrade</span>
+                <span class="badge">Add-on</span>
+                <span class="badge">Retest</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 glass-strong rounded-3xl p-6 border border-white/12">
+            <div class="grid lg:grid-cols-12 gap-6 items-start">
+              <div class="lg:col-span-7">
+                <h3 class="text-2xl font-black tracking-tight">How we work</h3>
+                <ol class="mt-4 space-y-3 text-white/70">
+                  <li class="flex gap-3">
+                    <span class="badge" style="min-width: 48px; justify-content:center;">1</span>
+                    <div><span class="font-extrabold text-white/90">Assess</span> — your appliances, usage and goals.</div>
+                  </li>
+                  <li class="flex gap-3">
+                    <span class="badge" style="min-width: 48px; justify-content:center;">2</span>
+                    <div><span class="font-extrabold text-white/90">Recommend</span> — a system range with clear options.</div>
+                  </li>
+                  <li class="flex gap-3">
+                    <span class="badge" style="min-width: 48px; justify-content:center;">3</span>
+                    <div><span class="font-extrabold text-white/90">Install</span> — neat, safe, and professionally finished.</div>
+                  </li>
+                  <li class="flex gap-3">
+                    <span class="badge" style="min-width: 48px; justify-content:center;">4</span>
+                    <div><span class="font-extrabold text-white/90">Support</span> — guidance, maintenance, and troubleshooting.</div>
+                  </li>
+                </ol>
+              </div>
+              <div class="lg:col-span-5">
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                  <div class="badge">Quick Quote</div>
+                  <div class="mt-3 font-black text-xl">Send your load list</div>
+                  <p class="mt-2 text-white/65">We’ll respond with a recommended setup. Example: TV, fridge, fans, lights, computers.</p>
+                  <div class="mt-4 flex flex-col sm:flex-row gap-2">
+                    <a class="btn btn-primary w-full sm:w-auto" href="#/contact" data-link data-route="/contact">Request Quote</a>
+                    <a class="btn btn-ghost w-full sm:w-auto" href="tel:08104269327">Call</a>
+                  </div>
+                  <div class="mt-4 text-xs text-white/55">
+                    <span class="font-extrabold text-white/80">Address:</span> Alaba Rago Rd, Alaba International Market Rd, Ojo, Lagos 102113, Lagos
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="page-projects" class="page">
+      <section class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-end justify-between gap-6 flex-wrap">
+            <div>
+              <div class="badge">Projects</div>
+              <h2 class="section-title mt-3">A premium finish that sells itself</h2>
+              <p class="section-sub mt-3">
+                Showcase-ready installations: clean panel layout, tidy wiring, labeled protection, and a professional equipment setup.
+              </p>
+            </div>
+            <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">Let’s plan yours</a>
+          </div>
+
+          <div class="mt-8 grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+            <!-- Gallery cards (using related images) -->
+            <div class="glass rounded-3xl overflow-hidden border border-white/10">
+              <div class="h-44 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1592833159155-2f8c13cc39b0?auto=format&fit=crop&w=1400&q=70')"></div>
+              <div class="p-5">
+                <div class="font-black">Rooftop Panel Installation</div>
+                <p class="mt-2 text-white/65 text-sm">Optimised panel positioning for maximum capture and tidy mounting.</p>
+                <div class="mt-4 flex gap-2">
+                  <span class="badge">Neat</span><span class="badge">Secure</span><span class="badge">Durable</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl overflow-hidden border border-white/10">
+              <div class="h-44 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1400&q=70')"></div>
+              <div class="p-5">
+                <div class="font-black">Inverter & Control Setup</div>
+                <p class="mt-2 text-white/65 text-sm">Clean arrangement with protection devices and safe cable routing.</p>
+                <div class="mt-4 flex gap-2">
+                  <span class="badge">Safety</span><span class="badge">Labelled</span><span class="badge">Professional</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl overflow-hidden border border-white/10">
+              <div class="h-44 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1400&q=70')"></div>
+              <div class="p-5">
+                <div class="font-black">Commercial Solar Arrays</div>
+                <p class="mt-2 text-white/65 text-sm">Scalable capacity for shops, offices and facilities that need uptime.</p>
+                <div class="mt-4 flex gap-2">
+                  <span class="badge">Scalable</span><span class="badge">Efficient</span><span class="badge">Reliable</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl overflow-hidden border border-white/10">
+              <div class="h-44 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1624397640148-949b1732bb16?auto=format&fit=crop&w=1400&q=70')"></div>
+              <div class="p-5">
+                <div class="font-black">Battery Bank Configuration</div>
+                <p class="mt-2 text-white/65 text-sm">Correct battery sizing and neat connections for longevity and safety.</p>
+                <div class="mt-4 flex gap-2">
+                  <span class="badge">Longevity</span><span class="badge">Balanced</span><span class="badge">Tested</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl overflow-hidden border border-white/10">
+              <div class="h-44 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1581091215367-59ab6c4c6c04?auto=format&fit=crop&w=1400&q=70')"></div>
+              <div class="p-5">
+                <div class="font-black">Quality Checks</div>
+                <p class="mt-2 text-white/65 text-sm">Voltage checks, protection verification, and performance validation.</p>
+                <div class="mt-4 flex gap-2">
+                  <span class="badge">Verified</span><span class="badge">Safe</span><span class="badge">Optimised</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl overflow-hidden border border-white/10">
+              <div class="h-44 bg-cover bg-center" style="background-image:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1400&q=70')"></div>
+              <div class="p-5">
+                <div class="font-black">Client Handover</div>
+                <p class="mt-2 text-white/65 text-sm">Simple usage guidance so clients feel confident from day one.</p>
+                <div class="mt-4 flex gap-2">
+                  <span class="badge">Guidance</span><span class="badge">Support</span><span class="badge">Aftercare</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 glass-strong rounded-3xl p-6 border border-white/12">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+              <div>
+                <div class="badge">Conversion booster</div>
+                <div class="mt-2 text-2xl font-black tracking-tight">Want your installation to look premium and feel reliable?</div>
+                <div class="mt-2 text-white/65">We focus on correct sizing and finishing details that clients love.</div>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">Request a Quote</a>
+                <a class="btn btn-ghost" href="#/services" data-link data-route="/services">Compare Services</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="page-about" class="page">
+      <section class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-7">
+              <div class="badge">About</div>
+              <h2 class="section-title mt-3">Chisco Solar Enterprise</h2>
+              <p class="mt-4 text-white/70 text-lg max-w-2xl">
+                We help Lagos homes and businesses transition to clean, reliable power with premium solar installation,
+                inverter solutions, and aftercare support.
+              </p>
+
+              <div class="mt-6 grid sm:grid-cols-2 gap-4">
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                  <div class="font-black">Our promise</div>
+                  <p class="mt-2 text-white/65">Clean installation, correct sizing, safe protection, and a system you can confidently use daily.</p>
+                </div>
+                <div class="glass rounded-3xl p-5 border border-white/10">
+                  <div class="font-black">Our focus</div>
+                  <p class="mt-2 text-white/65">Premium workmanship and practical guidance that prevents common solar mistakes.</p>
+                </div>
+              </div>
+
+              <div class="mt-6 glass-strong rounded-3xl p-6 border border-white/12">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <div class="font-black text-xl">Visit us</div>
+                    <div class="mt-2 text-white/65">
+                      Alaba Rago Rd, Alaba International Market Rd, Ojo, Lagos 102113, Lagos
+                    </div>
+                    <div class="mt-2 text-white/65">
+                      Phone: <a class="underline decoration-white/20 hover:decoration-white/50" href="tel:08104269327">0810 426 9327</a>
+                    </div>
+                  </div>
+                  <div class="flex gap-2">
+                    <a class="btn btn-primary" href="#/contact" data-link data-route="/contact">Talk to us</a>
+                    <a class="btn btn-ghost" href="#/projects" data-link data-route="/projects">See projects</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5">
+              <div class="glass rounded-3xl overflow-hidden border border-white/10">
+                <div class="h-56 bg-cover bg-center"
+                  style="background-image:
+                    linear-gradient(180deg, rgba(5,10,18,.1), rgba(5,10,18,.75)),
+                    url('https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1600&q=70');">
+                </div>
+                <div class="p-5">
+                  <div class="font-black text-lg">Why clients choose us</div>
+                  <ul class="mt-3 space-y-2 text-sm text-white/70">
+                    <li class="flex gap-2"><span class="mt-[6px] w-2 h-2 rounded-full" style="background: var(--accent)"></span>Premium finishing and neat wiring</li>
+                    <li class="flex gap-2"><span class="mt-[6px] w-2 h-2 rounded-full" style="background: var(--accent2)"></span>Transparent recommendations & options</li>
+                    <li class="flex gap-2"><span class="mt-[6px] w-2 h-2 rounded-full" style="background: var(--warn)"></span>Focus on safety and longevity</li>
+                    <li class="flex gap-2"><span class="mt-[6px] w-2 h-2 rounded-full" style="background: var(--danger)"></span>Support after installation</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="mt-4 glass rounded-3xl p-5 border border-white/10">
+                <div class="font-black">Client-ready messaging (high converting)</div>
+                <p class="mt-2 text-white/65 text-sm">
+                  “We don’t just install solar — we deliver a clean, correctly-sized power system you’ll enjoy using every day.”
+                </p>
+                <div class="mt-4 flex gap-2">
+                  <a class="btn btn-primary w-full sm:w-auto" href="#/contact" data-link data-route="/contact">Get a Quote</a>
+                  <a class="btn btn-ghost w-full sm:w-auto" href="tel:08104269327">Call now</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="page-contact" class="page">
+      <section class="section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid lg:grid-cols-12 gap-8 items-start">
+            <div class="lg:col-span-6">
+              <div class="badge">Contact</div>
+              <h2 class="section-title mt-3">Get a fast quote for your solar setup</h2>
+              <p class="section-sub mt-3">
+                Send details below and we’ll respond quickly with recommended options. You can also call us directly.
+              </p>
+
+              <div class="mt-6 glass-strong rounded-3xl p-6 border border-white/12">
+                <form id="quoteForm" class="space-y-4">
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-sm font-extrabold text-white/75">Full name</label>
+                      <input class="field w-full mt-2" name="name" placeholder="Your name" required />
+                    </div>
+                    <div>
+                      <label class="text-sm font-extrabold text-white/75">Phone number</label>
+                      <input class="field w-full mt-2" name="phone" placeholder="e.g. 080..." required inputmode="tel" />
+                    </div>
+                  </div>
+
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-sm font-extrabold text-white/75">Project type</label>
+                      <select class="field w-full mt-2" name="type" required>
+                        <option value="">Select</option>
+                        <option>Residential</option>
+                        <option>Commercial</option>
+                        <option>Upgrade / Expansion</option>
+                        <option>Maintenance / Repair</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="text-sm font-extrabold text-white/75">Preferred budget (optional)</label>
+                      <select class="field w-full mt-2" name="budget">
+                        <option value="">Select</option>
+                        <option>Entry</option>
+                        <option>Mid</option>
+                        <option>Premium</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="text-sm font-extrabold text-white/75">What do you want to power?</label>
+                    <textarea class="field w-full mt-2 min-h-[120px]" name="load" placeholder="List appliances: TV, fan, lights, fridge, freezer, laptop, etc." required></textarea>
+                    <div class="help mt-2">Tip: include quantity and hours used per day if possible.</div>
+                  </div>
+
+                  <div class="grid sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-sm font-extrabold text-white/75">Location (Lagos)</label>
+                      <input class="field w-full mt-2" name="location" placeholder="e.g. Ojo / Ajah / Ikeja..." required />
+                    </div>
+                    <div>
+                      <label class="text-sm font-extrabold text-white/75">When do you want it done?</label>
+                      <select class="field w-full mt-2" name="timeline" required>
+                        <option value="">Select</option>
+                        <option>Immediately</option>
+                        <option>Within 1 week</option>
+                        <option>Within 2–4 weeks</option>
+                        <option>Just exploring</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between pt-2">
+                    <button class="btn btn-primary w-full sm:w-auto" type="submit">
+                      Send Request
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M22 2L11 13" stroke="rgba(3,16,21,.9)" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M22 2l-7 20-4-9-9-4 20-7z" stroke="rgba(3,16,21,.9)" stroke-width="2" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                    <div class="text-sm text-white/60">
+                      Or call: <a class="underline decoration-white/20 hover:decoration-white/50 font-extrabold text-white/85" href="tel:08104269327">0810 426 9327</a>
+                    </div>
+                  </div>
+
+                  <div class="text-xs text-white/50">
+                    By sending, you agree we may contact you about your request. No spam.
+                  </div>
+                </form>
+              </div>
+
+              <div class="mt-4 grid sm:grid-cols-2 gap-4">
+                <a class="glass rounded-3xl p-5 border border-white/10 hover:bg-white/7 transition" href="tel:08104269327">
+                  <div class="font-black">Call now</div>
+                  <div class="mt-1 text-white/65 text-sm">0810 426 9327</div>
+                  <div class="mt-3 text-xs text-white/50">Tap to call</div>
+                </a>
+                <a class="glass rounded-3xl p-5 border border-white/10 hover:bg-white/7 transition" href="#/" data-link data-route="/">
+                  <div class="font-black">Back to home</div>
+                  <div class="mt-1 text-white/65 text-sm">See the premium hero & 3D</div>
+                  <div class="mt-3 text-xs text-white/50">Tap to return</div>
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-6">
+              <div class="glass rounded-3xl overflow-hidden border border-white/10">
+                <div class="p-6">
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <div class="badge">Business info</div>
+                      <div class="mt-3 font-black text-2xl">Chisco Solar Enterprise</div>
+                      <div class="mt-2 text-white/65">
+                        Alaba Rago Rd, Alaba International Market Rd, Ojo, Lagos 102113, Lagos
+                      </div>
+                      <div class="mt-2 text-white/65">
+                        Phone: <a class="underline decoration-white/20 hover:decoration-white/50" href="tel:08104269327">0810 426 9327</a>
+                      </div>
+                    </div>
+                    <div class="flex gap-2">
+                      <a class="btn btn-ghost" id="copyAddress" href="javascript:void(0)">Copy Address</a>
+                      <a class="btn btn-primary" id="openMaps" href="javascript:void(0)">Open Maps</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Lightweight embedded map (OpenStreetMap iframe) -->
+                <div class="h-[360px] sm:h-[420px] bg-black/20 border-t border-white/10">
+                  <iframe
+                    title="Map"
+                    class="w-full h-full"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=3.185%2C6.447%2C3.315%2C6.527&layer=mapnik&marker=6.487%2C3.25">
+                  </iframe>
+                </div>
+              </div>
+
+              <div class="mt-4 glass-strong rounded-3xl p-6 border border-white/12">
+                <div class="badge">FAQ</div>
+                <div class="mt-3 grid md:grid-cols-2 gap-3">
+                  <details class="glass rounded-2xl p-4 border border-white/10">
+                    <summary class="font-extrabold cursor-pointer">How do I know what size I need?</summary>
+                    <p class="mt-2 text-sm text-white/65">Send your appliance list and usage hours. We’ll recommend a suitable range and explain your options.</p>
+                  </details>
+                  <details class="glass rounded-2xl p-4 border border-white/10">
+                    <summary class="font-extrabold cursor-pointer">Do you handle maintenance?</summary>
+                    <p class="mt-2 text-sm text-white/65">Yes. We provide checks, troubleshooting, upgrades, and guidance to keep performance strong.</p>
+                  </details>
+                  <details class="glass rounded-2xl p-4 border border-white/10">
+                    <summary class="font-extrabold cursor-pointer">Do you do commercial installations?</summary>
+                    <p class="mt-2 text-sm text-white/65">Yes. We support shops, offices, and facilities with scalable solar + inverter solutions.</p>
+                  </details>
+                  <details class="glass rounded-2xl p-4 border border-white/10">
+                    <summary class="font-extrabold cursor-pointer">How fast can you respond?</summary>
+                    <p class="mt-2 text-sm text-white/65">We aim to respond quickly and schedule a site survey based on availability and location.</p>
+                  </details>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-12 gap-6 items-start">
+        <div class="md:col-span-5">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl glass flex items-center justify-center border border-white/10">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 2l2.3 5.9L21 10l-5.1 4.1L17.4 21 12 17.7 6.6 21l1.5-6.9L3 10l6.7-2.1L12 2z" stroke="rgba(255,255,255,.85)" stroke-width="1.4" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="font-black">Chisco Solar Enterprise</div>
+              <div class="text-sm text-white/55">Premium solar installation • Lagos</div>
+            </div>
+          </div>
+
+          <p class="mt-4 text-white/60 max-w-md">
+            Reliable solar + inverter solutions with clean finishing, safe wiring, and aftercare support.
+          </p>
+        </div>
+
+        <div class="md:col-span-3">
+          <div class="font-black">Pages</div>
+          <div class="mt-3 flex flex-col gap-2 text-white/70">
+            <a class="hover:text-white" href="#/" data-link data-route="/">Home</a>
+            <a class="hover:text-white" href="#/services" data-link data-route="/services">Services</a>
+            <a class="hover:text-white" href="#/projects" data-link data-route="/projects">Projects</a>
+            <a class="hover:text-white" href="#/about" data-link data-route="/about">About</a>
+            <a class="hover:text-white" href="#/contact" data-link data-route="/contact">Contact</a>
+          </div>
+        </div>
+
+        <div class="md:col-span-4">
+          <div class="font-black">Contact</div>
+          <div class="mt-3 text-white/70 text-sm space-y-2">
+            <div><span class="text-white/50">Phone:</span> <a class="underline decoration-white/20 hover:decoration-white/50" href="tel:08104269327">0810 426 9327</a></div>
+            <div><span class="text-white/50">Address:</span> Alaba Rago Rd, Alaba International Market Rd, Ojo, Lagos 102113, Lagos</div>
+          </div>
+
+          <div class="mt-4 flex flex-col sm:flex-row gap-2">
+            <a class="btn btn-primary w-full sm:w-auto" href="#/contact" data-link data-route="/contact">Get Free Quote</a>
+            <a class="btn btn-ghost w-full sm:w-auto" href="tel:08104269327">Call</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div class="text-xs text-white/45">© <span id="year"></span> Chisco Solar Enterprise. All rights reserved.</div>
+        <div class="text-xs text-white/45">Built with premium UX • 3D cinematic hero • Mobile-first</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast gap-3 items-start">
+    <div class="dot"></div>
+    <div class="flex-1">
+      <div id="toastTitle" class="font-black text-white/90">Sent</div>
+      <div id="toastMsg" class="text-sm text-white/65 mt-0.5">We’ll get back to you shortly.</div>
+    </div>
+    <button id="toastClose" class="btn btn-ghost px-3 py-2" aria-label="Close">Close</button>
+  </div>
+
+  <script>
+    // ---------------------------
+    // Simple SPA Router (hash)
+    // ---------------------------
+    const pages = {
+      "/": document.getElementById("page-home"),
+      "/services": document.getElementById("page-services"),
+      "/projects": document.getElementById("page-projects"),
+      "/about": document.getElementById("page-about"),
+      "/contact": document.getElementById("page-contact"),
+    };
+
+    function getRoute(){
+      const h = location.hash || "#/";
+      const path = h.replace(/^#/, "");
+      return pages[path] ? path : "/";
+    }
+
+    function setActiveNav(route){
+      document.querySelectorAll("[data-route]").forEach(a=>{
+        a.classList.toggle("active", a.getAttribute("data-route") === route);
+      });
+    }
+
+    function showPage(route){
+      Object.entries(pages).forEach(([r, el])=>{
+        el.classList.toggle("active", r === route);
+      });
+      setActiveNav(route);
+      // Close mobile menu on navigation
+      mobileMenu.classList.add("hidden");
+      // Scroll top smoothly
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      // Reduce 3D on non-home pages for performance
+      set3DEnabled(route === "/" && is3DEnabledManual);
+    }
+
+    window.addEventListener("hashchange", ()=>{
+      showPage(getRoute());
+    });
+
+    // ---------------------------
+    // Mobile menu
+    // ---------------------------
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn?.addEventListener("click", ()=>{
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // ---------------------------
+    // KPI Count-up
+    // ---------------------------
+    function countUp(el, to){
+      const dur = 900;
+      const start = performance.now();
+      const from = 0;
+      function tick(t){
+        const p = Math.min(1, (t - start) / dur);
+        const val = Math.round(from + (to - from) * (1 - Math.pow(1-p, 3)));
+        el.textContent = val + (to === 100 ? "" : "");
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+    function initCounts(){
+      document.querySelectorAll("[data-count]").forEach(el=>{
+        const to = parseInt(el.getAttribute("data-count"), 10);
+        countUp(el, to);
+      });
+    }
+
+    // ---------------------------
+    // Toast
+    // ---------------------------
+    const toast = document.getElementById("toast");
+    const toastTitle = document.getElementById("toastTitle");
+    const toastMsg = document.getElementById("toastMsg");
+    const toastClose = document.getElementById("toastClose");
+    let toastTimer = null;
+
+    function showToast(title, msg){
+      toastTitle.textContent = title;
+      toastMsg.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(()=>toast.classList.remove("show"), 5200);
+    }
+    toastClose.addEventListener("click", ()=>toast.classList.remove("show"));
+
+    // ---------------------------
+    // Contact actions
+    // ---------------------------
+    const addressText = "Alaba Rago Rd, Alaba International Market Rd, Ojo, Lagos 102113, Lagos";
+    document.getElementById("copyAddress")?.addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(addressText);
+        showToast("Copied", "Address copied to clipboard.");
+      }catch(e){
+        showToast("Copy failed", "Your browser blocked clipboard access.");
+      }
+    });
+
+    document.getElementById("openMaps")?.addEventListener("click", ()=>{
+      const q = encodeURIComponent("Chisco Solar Enterprise, " + addressText);
+      window.open("https://www.google.com/maps/search/?api=1&query=" + q, "_blank", "noopener,noreferrer");
+    });
+
+    // Quote form -> creates WhatsApp message (high conversion) + fallback email
+    const quoteForm = document.getElementById("quoteForm");
+    quoteForm?.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const fd = new FormData(quoteForm);
+      const data = Object.fromEntries(fd.entries());
+
+      const msg =
+`Hello Chisco Solar Enterprise,
+I want a solar/inverter quote.
+
+Name: ${data.name}
+Phone: ${data.phone}
+Project Type: ${data.type}
+Budget: ${data.budget || "Not specified"}
+Location: ${data.location}
+Timeline: ${data.timeline}
+
+Load / Appliances:
+${data.load}
+
+Sent from your website.`;
+
+      // Nigeria number format without leading zero for wa.me: 234xxxxxxxxxx
+      // Provided number: 0810 426 9327 -> 2348104269327
+      const waNumber = "2348104269327";
+      const waUrl = "https://wa.me/" + waNumber + "?text=" + encodeURIComponent(msg);
+
+      showToast("Request ready", "Opening WhatsApp with your quote request...");
+      setTimeout(()=>window.open(waUrl, "_blank", "noopener,noreferrer"), 600);
+
+      quoteForm.reset();
+    });
+
+    // ---------------------------
+    // 3D Cinematic Stage (Three.js)
+    // ---------------------------
+    const canvas = document.getElementById("stage");
+    const toggle3dBtn = document.getElementById("toggle3d");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let renderer, scene, camera, rafId = null;
+    let solarGroup, stars, glowPlane, lightA, lightB;
+    let is3DEnabledManual = !prefersReducedMotion;
+    let is3DRunning = false;
+
+    function set3DEnabled(enable){
+      if (!canvas) return;
+      if (enable) start3D();
+      else stop3D();
+      canvas.style.display = enable ? "block" : "none";
+    }
+
+    function init3D(){
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera(42, 1, 0.1, 80);
+      camera.position.set(0, 1.15, 7.2);
+
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+        powerPreference: "high-performance"
+      });
+      renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+      renderer.setClearColor(0x000000, 0);
+
+      // Lights
+      lightA = new THREE.DirectionalLight(0x7dd3fc, 1.2);
+      lightA.position.set(3, 4, 6);
+      scene.add(lightA);
+
+      lightB = new THREE.DirectionalLight(0x34d399, 1.05);
+      lightB.position.set(-5, 3, 3);
+      scene.add(lightB);
+
+      const amb = new THREE.AmbientLight(0xffffff, 0.35);
+      scene.add(amb);
+
+      // Stars / particles
+      const starGeo = new THREE.BufferGeometry();
+      const count = 650;
+      const positions = new Float32Array(count * 3);
+      for (let i=0;i<count;i++){
+        const r = 16 * Math.random();
+        const theta = Math.random() * Math.PI * 2;
+        const y = (Math.random() * 6) - 1.2;
+        positions[i*3+0] = Math.cos(theta) * r;
+        positions[i*3+1] = y;
+        positions[i*3+2] = -Math.random() * 18;
+      }
+      starGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const starMat = new THREE.PointsMaterial({ color: 0xbdd7ff, size: 0.03, transparent:true, opacity: 0.55 });
+      stars = new THREE.Points(starGeo, starMat);
+      scene.add(stars);
+
+      // Solar panel stylized object group
+      solarGroup = new THREE.Group();
+      scene.add(solarGroup);
+
+      const panelW = 3.25;
+      const panelH = 1.85;
+      const panelD = 0.08;
+
+      const panelGeom = new THREE.BoxGeometry(panelW, panelH, panelD, 1, 1, 1);
+
+      // Panel material with subtle sheen
+      const panelMat = new THREE.MeshStandardMaterial({
+        color: 0x0b1c35,
+        metalness: 0.45,
+        roughness: 0.22,
+        emissive: 0x071023,
+        emissiveIntensity: 0.35
+      });
+
+      const frameMat = new THREE.MeshStandardMaterial({
+        color: 0x7a8aa1,
+        metalness: 0.85,
+        roughness: 0.28
+      });
+
+      const panel = new THREE.Mesh(panelGeom, panelMat);
+      panel.castShadow = false;
+      panel.receiveShadow = false;
+      solarGroup.add(panel);
+
+      // Frame border
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(panelW+0.06, panelH+0.06, panelD+0.03), frameMat);
+      frame.position.z = -0.01;
+      solarGroup.add(frame);
+
+      // Grid lines on panel
+      const lines = new THREE.Group();
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x3aa1ff, transparent:true, opacity: 0.22 });
+      const lineCountX = 7;
+      const lineCountY = 4;
+
+      for (let i=1;i<lineCountX;i++){
+        const x = (-panelW/2) + (panelW/lineCountX)*i;
+        const pts = [ new THREE.Vector3(x, -panelH/2, panelD/2 + 0.041), new THREE.Vector3(x, panelH/2, panelD/2 + 0.041) ];
+        const g = new THREE.BufferGeometry().setFromPoints(pts);
+        lines.add(new THREE.Line(g, lineMat));
+      }
+      for (let j=1;j<lineCountY;j++){
+        const y = (-panelH/2) + (panelH/lineCountY)*j;
+        const pts = [ new THREE.Vector3(-panelW/2, y, panelD/2 + 0.041), new THREE.Vector3(panelW/2, y, panelD/2 + 0.041) ];
+        const g = new THREE.BufferGeometry().setFromPoints(pts);
+        lines.add(new THREE.Line(g, lineMat));
+      }
+      solarGroup.add(lines);
+
+      // Floating "energy ring"
+      const ringGeom = new THREE.TorusGeometry(2.1, 0.032, 16, 160);
+      const ringMat = new THREE.MeshStandardMaterial({
+        color: 0x34d399,
+        metalness: 0.25,
+        roughness: 0.25,
+        transparent:true,
+        opacity: 0.72,
+        emissive: 0x34d399,
+        emissiveIntensity: 0.35
+      });
+      const ring = new THREE.Mesh(ringGeom, ringMat);
+      ring.rotation.x = Math.PI/2.3;
+      ring.position.set(0, 0.1, 0.25);
+      solarGroup.add(ring);
+
+      // Glow plane
+      const glowGeom = new THREE.PlaneGeometry(9, 6);
+      const glowMat = new THREE.MeshBasicMaterial({
+        transparent: true,
+        opacity: 0.35,
+        color: 0x60a5fa
+      });
+      glowPlane = new THREE.Mesh(glowGeom, glowMat);
+      glowPlane.position.set(0, 0.9, -3.2);
+      scene.add(glowPlane);
+
+      // Base transforms
+      solarGroup.position.set(0.15, 0.2, 0);
+      solarGroup.rotation.set(-0.22, 0.55, 0.07);
+
+      onResize3D();
+    }
+
+    function onResize3D(){
+      if (!renderer || !camera || !canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(1, rect.width);
+      const h = Math.max(1, rect.height);
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+
+    let t0 = performance.now();
+    let pointerX = 0, pointerY = 0;
+    function animate3D(now){
+      rafId = requestAnimationFrame(animate3D);
+      const t = (now - t0) * 0.001;
+
+      // Subtle parallax from pointer
+      const targetX = (pointerX - 0.5) * 0.35;
+      const targetY = (pointerY - 0.5) * 0.22;
+
+      if (solarGroup){
+        solarGroup.rotation.y = 0.55 + Math.sin(t*0.7)*0.08 + targetX;
+        solarGroup.rotation.x = -0.22 + Math.cos(t*0.65)*0.06 + targetY;
+        solarGroup.position.y = 0.2 + Math.sin(t*1.1) * 0.06;
+      }
+      if (stars){
+        stars.rotation.y = t * 0.04;
+        stars.position.y = Math.sin(t*0.2) * 0.08;
+      }
+      if (glowPlane){
+        glowPlane.material.opacity = 0.22 + (Math.sin(t*0.9)*0.06 + 0.1);
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    function start3D(){
+      if (is3DRunning) return;
+      if (!renderer) init3D();
+      is3DRunning = true;
+      rafId = requestAnimationFrame(animate3D);
+    }
+
+    function stop3D(){
+      is3DRunning = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    // Pointer tracking (for cinematic parallax)
+    function setPointerFromEvent(ev){
+      const rect = canvas.getBoundingClientRect();
+      const x = ("touches" in ev && ev.touches[0]) ? ev.touches[0].clientX : ev.clientX;
+      const y = ("touches" in ev && ev.touches[0]) ? ev.touches[0].clientY : ev.clientY;
+      pointerX = (x - rect.left) / rect.width;
+      pointerY = (y - rect.top) / rect.height;
+      pointerX = Math.max(0, Math.min(1, pointerX));
+      pointerY = Math.max(0, Math.min(1, pointerY));
+    }
+
+    window.addEventListener("resize", onResize3D, { passive:true });
+
+    // Only attach pointer listeners if canvas exists
+    if (canvas){
+      // mouse
+      window.addEventListener("mousemove", (e)=>{
+        if (!is3DRunning) return;
+        setPointerFromEvent(e);
+      }, { passive:true });
+
+      // touch
+      canvas.addEventListener("touchstart", (e)=>{
+        if (!is3DRunning) return;
+        setPointerFromEvent(e);
+      }, { passive:true });
+      canvas.addEventListener("touchmove", (e)=>{
+        if (!is3DRunning) return;
+        setPointerFromEvent(e);
+      }, { passive:true });
+    }
+
+    toggle3dBtn?.addEventListener("click", ()=>{
+      is3DEnabledManual = !is3DEnabledManual;
+      const route = getRoute();
+      const shouldEnable = (route === "/") && is3DEnabledManual;
+      set3DEnabled(shouldEnable);
+      showToast("3D " + (shouldEnable ? "enabled" : "disabled"), shouldEnable ? "Cinematic scene is running." : "3D scene paused for performance.");
+    });
+
+    // ---------------------------
+    // Boot
+    // ---------------------------
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Initialize
+    const initialRoute = getRoute();
+    showPage(initialRoute);
+    initCounts();
+    set3DEnabled(initialRoute === "/" && is3DEnabledManual);
+
+    // Improve SPA link behavior (close menu and route)
+    document.querySelectorAll("[data-link]").forEach(a=>{
+      a.addEventListener("click", ()=>{
+        // allow hash routing
+        // close menu handled in showPage
+      });
+    });
+
+    // Performance: pause 3D when tab not visible
+    document.addEventListener("visibilitychange", ()=>{
+      if (document.hidden) stop3D();
+      else {
+        const route = getRoute();
+        if (route === "/" && is3DEnabledManual) start3D();
+      }
+    });
+  </script>
+</body>
+</html>
